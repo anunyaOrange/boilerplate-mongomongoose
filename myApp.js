@@ -2,9 +2,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 
-const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-mongoose.connect(process.env.MONGO_URI, clientOptions);
-// mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+// mongoose.connect(process.env.MONGO_URI, clientOptions);
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const personSchema = new mongoose.Schema({
   name: {
@@ -17,20 +17,28 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema);
 
 const createAndSavePerson = (done) => {
-  const john = new Person({
-    name: "John Doe",
-    age: 30,
-    favoriteFoods: ["pizza", "pasta"]
+  var janeFonda = new Person({ name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"] });
+
+  janeFonda.save(function (err, data) {
+    if (err) return console.error(err);
+    done(null, data)
   });
-  john.save().then(data => {
-    // If successful, pass the data to the done callback
-    console.log("Person created and saved:", data);
-    done(null, data);
-  })
-  .catch(err => {
-    console.error("Error creating and saving person:", err);
-    return done(err);
-  });
+
+  // const person = new Person({
+  //   name: "John Doe",
+  //   age: 28,
+  //   favoriteFoods: ["pizza", "pasta"]
+  // });
+
+  // person.save().then(data => {
+  //   // If successful, pass the data to the done callback
+  //   console.log("Person created and saved:", data);
+  //   done(null, data);
+  // })
+  // .catch(err => {
+  //   console.error("Error creating and saving person:", err);
+  //   return done(err);
+  // });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://anunyaorange:andk78hP7Stu4ePDr@cluster0.zyw8trq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://anunyaorange:andk78hP7Stu4ePDr@cluster0.zyw8trq.mongodb.net/FCC?retryWrites=true&w=majority&appName=Cluster0";
 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
