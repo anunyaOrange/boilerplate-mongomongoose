@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-// mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(process.env.MONGO_URI, clientOptions);
+// mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const personSchema = new mongoose.Schema({
   name: {
@@ -17,7 +17,20 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  const john = new Person({
+    name: "John Doe",
+    age: 30,
+    favoriteFoods: ["pizza", "pasta"]
+  });
+  john.save().then(data => {
+    // If successful, pass the data to the done callback
+    console.log("Person created and saved:", data);
+    done(null, data);
+  })
+  .catch(err => {
+    console.error("Error creating and saving person:", err);
+    return done(err);
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {

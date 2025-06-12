@@ -37,6 +37,11 @@ const enableCORS = function (req, res, next) {
 // wrong callbacks that will never be called
 const TIMEOUT = 10000;
 
+app.use((req, res, next) => {
+  console.log(req.method + " " + req.path + " - " + req.ip);
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: "false" }));
 app.use(bodyParser.json());
 
@@ -96,12 +101,19 @@ router.get("/create-and-save-person", function (req, res, next) {
       console.log("Missing `done()` argument");
       return next({ message: "Missing callback argument" });
     }
-    Person.findById(data._id, function (err, pers) {
-      if (err) {
-        return next(err);
-      }
-      res.json(pers);
-      pers.remove();
+    // Person.findById(data._id, function (err, pers) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    //   res.json(pers);
+    //   pers.remove();
+    // });
+    Person.findById(data._id).then((pers) => {
+      return res.json(pers);
+      // pers.remove();
+    }).catch((err) => {
+      console.error("Error finding person by ID:", err);
+      return next(err);
     });
   });
 });
