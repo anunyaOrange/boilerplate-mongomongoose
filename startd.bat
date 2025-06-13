@@ -1,1 +1,1 @@
-mongod --dbpath="S:\anunyaOrange\dev\mongodata"
+mongod --dbpath="C:\anunyaOrange\dev\mongodata"

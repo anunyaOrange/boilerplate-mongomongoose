@@ -93,6 +93,7 @@ router.get("/create-and-save-person", function (req, res, next) {
     next({ message: "timeout" });
   }, TIMEOUT);
   createPerson(function (err, data) {
+    console.log("SERVER ", data);
     clearTimeout(t);
     if (err) {
       return next(err);
@@ -102,18 +103,13 @@ router.get("/create-and-save-person", function (req, res, next) {
       return next({ message: "Missing callback argument" });
     }
     Person.findById(data._id, function (err, pers) {
+      console.log("Error finding person by ID:", err);
       if (err) {
         return next(err);
       }
       res.json(pers);
       pers.remove();
     });
-    // Person.findById(data._id).then((pers) => {
-    //   res.json(pers);
-    // }).catch((err) => {
-    //   console.error("Error finding person by ID:", err);
-    //   return next(err);
-    // });
   });
 });
 
