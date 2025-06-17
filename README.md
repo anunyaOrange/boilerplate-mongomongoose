@@ -4,3 +4,5 @@ This is the boilerplate for the MongoDB and Mongoose lessons. Instructions for c
 
 I need to install local mongodb 4.4.29 which supported by mongoose 5.11.15 from boilerplate's package.json
 cannot use mongodb atlas due to old mongoose version 
+
+https://mongoosejs.com/docs/compatibility.html
